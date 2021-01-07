@@ -7,8 +7,8 @@ public class Runner {
 		
 		Results res = new Results();
 		
-		int biologyScore = 18;
-		int chemistryScore = 150;
+		int biologyScore = 60;
+		int chemistryScore = 60;
 		int physicsScore = 150;
 		
 		System.out.println(res.displayResults(biologyScore, chemistryScore, physicsScore));

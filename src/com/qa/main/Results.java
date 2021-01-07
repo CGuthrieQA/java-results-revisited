@@ -23,10 +23,12 @@ public class Results {
 		double chemPercent = percentageCheck(chem);
 		double physPercent = percentageCheck(phys);
 		
+		double[] percentArray = {bioPercent, chemPercent, physPercent};
+		
 		String results = "PERCENTAGE\r\n";
 		results += "Biology: " + bioPercent + "%\r\n";
 		results += "Chemistry: " + chemPercent + "%\r\n";
-		results += "Physics: " + chemPercent + "%\r\n";
+		results += "Physics: " + physPercent + "%\r\n";
 		results += "Total: " + percentage + "%\r\n\n";
 		
 		
@@ -49,6 +51,17 @@ public class Results {
 			} else {
 				results += "FAILED PHYSICS\r\n";
 			}
+			
+			int i;
+			int count = 0;
+			
+			for (i=0; i < percentArray.length; i++) {
+				if (percentArray[i] < 60) {
+					count++;
+				}
+			}
+			
+			results += "TOTAL FAILS: " + count;
 
 		} else if ( percentage < 60.0 ) {
 			results += "FAILED TO REACH TOTAL PERCENTAGE REQUIRED";

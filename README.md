@@ -37,7 +37,7 @@ public String percentageResults(int bio, int chem, int phys) {
 	String results = "PERCENTAGE\r\n";
 	results += "Biology: " + bioPercent + "%\r\n";
 	results += "Chemistry: " + chemPercent + "%\r\n";
-	results += "Physics: " + chemPercent + "%\r\n";
+	results += "Physics: " + physPercent + "%\r\n";
 	results += "Total: " + percentage + "%\r\n\n";
 	
 	
@@ -57,44 +57,57 @@ public String percentageResults(int bio, int chem, int phys) {
 
 ```java
 public String percentageResults(int bio, int chem, int phys) {
-		double percentage = ( 100 * ( bio + chem + phys ) ) / 450;
-		double bioPercent = percentageCheck(bio);
-		double chemPercent = percentageCheck(chem);
-		double physPercent = percentageCheck(phys);
+	double percentage = ( 100 * ( bio + chem + phys ) ) / 450;
+	double bioPercent = percentageCheck(bio);
+	double chemPercent = percentageCheck(chem);
+	double physPercent = percentageCheck(phys);
+	
+	double[] percentArray = {bioPercent, chemPercent, physPercent};
+	
+	String results = "PERCENTAGE\r\n";
+	results += "Biology: " + bioPercent + "%\r\n";
+	results += "Chemistry: " + chemPercent + "%\r\n";
+	results += "Physics: " + physPercent + "%\r\n";
+	results += "Total: " + percentage + "%\r\n\n";
+	
+	
+	if (bioPercent < 60 || chemPercent < 60 || physPercent  < 60) {
 		
-		String results = "PERCENTAGE\r\n";
-		results += "Biology: " + bioPercent + "%\r\n";
-		results += "Chemistry: " + chemPercent + "%\r\n";
-		results += "Physics: " + chemPercent + "%\r\n";
-		results += "Total: " + percentage + "%\r\n\n";
-		
-		
-		if (bioPercent < 60 || chemPercent < 60 || physPercent  < 60) {
-			
-			if (bioPercent > 60 ){
-				results += "PASSED BIOLOGY\r\n";
-			} else {
-				results += "FAILED BIOLOGY\r\n";
-			}
-
-			if (chemPercent > 60){
-				results += "PASSED CHEMISTRY\r\n";
-			} else {
-				results += "FAILED CHEMISTRY\r\n";
-			}
-
-			if (physPercent > 60){
-				results += "PASSED PHYSICS\r\n";
-			} else {
-				results += "FAILED PHYSICS\r\n";
-			}
-
-		} else if ( percentage < 60.0 ) {
-			results += "FAILED TO REACH TOTAL PERCENTAGE REQUIRED";
+		if (bioPercent > 60 ){
+			results += "PASSED BIOLOGY\r\n";
 		} else {
-			results += "PASSED EVERYTHING";
+			results += "FAILED BIOLOGY\r\n";
+		}
+
+		if (chemPercent > 60){
+			results += "PASSED CHEMISTRY\r\n";
+		} else {
+			results += "FAILED CHEMISTRY\r\n";
+		}
+
+		if (physPercent > 60){
+			results += "PASSED PHYSICS\r\n";
+		} else {
+			results += "FAILED PHYSICS\r\n";
 		}
 		
-		return results;
+		int i;
+		int count = 0;
+		
+		for (i=0; i < percentArray.length; i++) {
+			if (percentArray[i] < 60) {
+				count++;
+			}
+		}
+		
+		results += "TOTAL FAILS: " + count;
+
+	} else if ( percentage < 60.0 ) {
+		results += "FAILED TO REACH TOTAL PERCENTAGE REQUIRED";
+	} else {
+		results += "PASSED EVERYTHING";
 	}
+	
+	return results;
+}
 ```
